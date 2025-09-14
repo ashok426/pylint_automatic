@@ -1,0 +1,37 @@
+name: Pylint
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pylint
+          # If your project has deps, also:
+          # pip install -r requirements.txt
+          # pip install -r requirements-dev.txt
+
+      - name: Run pylint (fail if score < 8.0)
+        run: |
+          # Lint all tracked Python files
+          FILES="$(git ls-files '*.py')"
+          if [ -z "$FILES" ]; then
+            echo "No Python files found."
+            exit 0
+          fi
+          pylint $FILES --fail-under=8.0
