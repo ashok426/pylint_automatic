@@ -1,29 +1,43 @@
-# This module intentionally has style issues to test pylint.
+"""Tiny demo module to exercise pylint and pass common checks."""
 
-def add_numbers(a, b):
-    # Missing docstring, non-typed params/return, prints instead of returning
-    c = a + b
-    print("sum is", c)
+from __future__ import annotations
 
 
-class user:  # class name should be CapWords (Invalid name "user")
-    def __init__(self, name, age=0):
-        self.Name = name  # attribute name should be snake_case
+def add_numbers(a: int, b: int) -> int:
+    """Return the sum of two integers."""
+    return a + b
+
+
+class User:
+    """Simple user model with greeting and age helpers."""
+
+    def __init__(self, name: str, age: int = 0) -> None:
+        self.name = name
         self.age = age
 
-    def greet(self):
-        print("hi " + self.Name)
+    def greet(self) -> str:
+        """Return a greeting string."""
+        return f"hi {self.name}"
+
+    def is_adult(self) -> bool:
+        """Return True if age is 18 or above."""
+        return self.age >= 18
 
 
-def main():
-    x = 1  # could be const, unused return from add_numbers
-    y = 2
-    add_numbers(x, y)
-    u = user("ashok")
-    u.greet()
+def main() -> None:
+    """Entry point used when running this file directly."""
+    num1 = 1
+    num2 = 2
+    total = add_numbers(num1, num2)
+    print("sum is", total)
+
+    user = User("ashok")
+    print(user.greet())
+
     try:
-        1 / 0
-    except:  # bare except (should catch specific exceptions)
+        _ = 1 / 0  # noqa: PLR2004 (if you use ruff), kept to show handled exception
+    except ZeroDivisionError:
+        # We deliberately swallow this for the demo; in real code, log it.
         pass
 
 
