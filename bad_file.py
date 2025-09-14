@@ -24,7 +24,7 @@ class User:
         return self.age >= 18
     def print_numbers(self) -> str:
         "return the string"
-        print("hi ashok")
+        print("hi ashok, How are you? Long time no see")
 
 
 def main() -> None:
