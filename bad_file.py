@@ -22,6 +22,9 @@ class User:
     def is_adult(self) -> bool:
         """Return True if age is 18 or above."""
         return self.age >= 18
+    def print_numbers(self) -> str:
+        "return the string"
+        print("hi ashok")
 
 
 def main() -> None:
